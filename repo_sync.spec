@@ -22,10 +22,11 @@ install -d 755 %{buildroot}/usr/share/repo_sync
 find ./ -name "*.py" -exec install -m 644 {} %{buildroot}/usr/share/repo_sync/{} \;
 install -m 644 gitlab_credentials.template %{buildroot}/usr/share/repo_sync/gitlab_credentials.template
 
-install -d 755 /usr/bin/
+install %{buildroot}/usr/bin/
 install -m 755 repo_sync %{buildroot}/usr/bin/repo_sync
 
 %files
-/usr/*
+/usr/bin/*
+/usr/share/*
 
 %changelog
