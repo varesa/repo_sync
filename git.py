@@ -19,3 +19,11 @@ class Git:
         out += subprocess.check_output(['git', 'remote', 'add', 'gitlab', mirror['ssh_url_to_repo']], cwd=self.repo_path(repo['name']), stderr=subprocess.STDOUT)
 
         return out
+
+    def repo_sync(self, repo):
+        out = subprocess.check_output(['git', 'pull', 'origin', '*:*'], cwd=self.repo_path(repo['name']), stderr=subprocess.STDOUT)
+        out += subprocess.check_output(['git', 'pull', 'gitlab', '*:*'], cwd=self.repo_path(repo['name']), stderr=subprocess.STDOUT)
+        out += subprocess.check_output(['git', 'push', 'origin', '*:*'], cwd=self.repo_path(repo['name']), stderr=subprocess.STDOUT)
+        out += subprocess.check_output(['git', 'push', 'gitlab', '*:*'], cwd=self.repo_path(repo['name']), stderr=subprocess.STDOUT)
+
+        return out

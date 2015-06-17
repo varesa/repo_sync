@@ -27,6 +27,8 @@ def sync(repos_gh, gitlab):
         else:
             print("no repo, creating")
             print(git.repo_create(repo_gh, repo_gl))
+        print("syncing")
+        print(git.repo_sync(repo_gh))
 
 
 def create_missing(repos_gh, repos_gl, gitlab):
