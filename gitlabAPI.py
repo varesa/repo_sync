@@ -1,12 +1,23 @@
 import requests
 import json
+import os
+import sys
 
 class Gitlab:
 
     URL_BASE = "http://192.168.0.194/api/v3"
+    CREDENTIALS_FILE = os.path.expanduser("~/repo_sync/gitlab_credentials")
+    CREDENTIALS_TEMPLATE = """username
+password
+target_username"""
 
     def __init__(self):
-        with open("gitlab_credentials", 'r') as file:
+        if not os.path.isfile(self.CREDENTIALS_FILE):
+            with open(self.CREDENTIALS_FILE, 'w') as file:
+                file.write(self.CREDENTIALS_TEMPLATE)
+            print("Please fill in gitlab credentials at ~/repo_sync/gitlab_credentials")
+            sys.exit()
+        with open(self.CREDENTIALS_FILE, 'r') as file:
             credentials = file.readlines()
             self.username = credentials[0].strip()
             self.password = credentials[1].strip()

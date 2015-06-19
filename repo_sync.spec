@@ -8,7 +8,7 @@ License:	GPLv2+
 URL:		https://github.com/varesa/repo_sync
 Source0: 	%{name}-%{version}.tar.gz
 
-Requires: python34u
+Requires: python34u git
 
 %description
 
@@ -18,9 +18,8 @@ Requires: python34u
 %build
 
 %install
-install -d 755 %{buildroot}/usr/share/repo_sync
+install -d -m 755 %{buildroot}/usr/share/repo_sync
 find ./ -name "*.py" -exec install -m 644 {} %{buildroot}/usr/share/repo_sync/{} \;
-install -m 644 gitlab_credentials.template %{buildroot}/usr/share/repo_sync/gitlab_credentials.template
 
 install -d %{buildroot}/usr/bin/
 install -m 755 repo_sync %{buildroot}/usr/bin/repo_sync

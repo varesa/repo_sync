@@ -22,7 +22,10 @@ class Git:
 
     def repo_sync(self, repo):
         out = subprocess.check_output(['git', 'pull', 'origin', '*:*'], cwd=self.repo_path(repo['name']), stderr=subprocess.STDOUT)
-        out += subprocess.check_output(['git', 'pull', 'gitlab', '*:*'], cwd=self.repo_path(repo['name']), stderr=subprocess.STDOUT)
+        try:
+            out += subprocess.check_output(['git', 'pull', 'gitlab', '*:*'], cwd=self.repo_path(repo['name']), stderr=subprocess.STDOUT)
+        except:
+            pass # Fails on the first run when the mirror is empty
         out += subprocess.check_output(['git', 'push', 'origin', '*:*'], cwd=self.repo_path(repo['name']), stderr=subprocess.STDOUT)
         out += subprocess.check_output(['git', 'push', 'gitlab', '*:*'], cwd=self.repo_path(repo['name']), stderr=subprocess.STDOUT)
 
