@@ -15,7 +15,7 @@ class Git:
         return os.path.join(self.PATH_BASE, name)
 
     def repo_create(self, repo, mirror):
-        out = subprocess.check_output(['git', 'clone', repo['git_url']], cwd=self.PATH_BASE, stderr=subprocess.STDOUT)
+        out = subprocess.check_output(['git', 'clone', repo['ssh_url']], cwd=self.PATH_BASE, stderr=subprocess.STDOUT)
         out += subprocess.check_output(['git', 'remote', 'add', 'gitlab', mirror['ssh_url_to_repo']], cwd=self.repo_path(repo['name']), stderr=subprocess.STDOUT)
 
         return out
