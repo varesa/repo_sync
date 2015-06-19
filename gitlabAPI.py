@@ -50,7 +50,7 @@ target_username"""
             return "Failed"
 
     def get_repo(self, name):
-        response = requests.get(self.URL_BASE + "/projects/" + self.target_user + "%2F" + name.lower() + "?private_token=" + self.private_token)
+        response = requests.get(self.URL_BASE + "/projects/" + self.target_user + "%2F" + name.lower().replace('.','-') + "?private_token=" + self.private_token)
         if response.status_code == 404:
             raise Exception
         return json.loads(response.text)
