@@ -22,12 +22,9 @@ def sync(repos_gh, gitlab):
     for repo_gh in repos_gh:
         name = repo_gh['name']
         repo_gl = gitlab.get_repo(name)
-        if git.repo_exists(name):
-            print("repo exists")
-        else:
-            print("no repo, creating")
+        print("Repository " + name + ":")
+        if not git.repo_exists(name):
             print(git.repo_create(repo_gh, repo_gl))
-        print("syncing")
         print(git.repo_sync(repo_gh))
 
 
@@ -39,7 +36,7 @@ def create_missing(repos_gh, repos_gl, gitlab):
                 found = True
 
         if not found:
-            print("Creating repo " + repo_gh['name'])
+            print("Gitlab: Creating repo " + repo_gh['name'])
             print(gitlab.create_repo(repo_gh['name']))
 
 
